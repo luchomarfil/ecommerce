@@ -1,0 +1,5 @@
+spring:
+    datasource:
+        url: jdbc:mysql://servicio-maria/ecommerce
+        username: root
+        password: root
