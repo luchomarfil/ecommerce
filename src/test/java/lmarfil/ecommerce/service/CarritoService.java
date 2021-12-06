@@ -2,12 +2,15 @@ package lmarfil.ecommerce.service;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.fail;
+
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import org.assertj.core.api.Fail;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -43,7 +46,7 @@ public class CarritoService {
 	}
 	
 	@Test
-	public void deberiaEliminarUnCarritoSolicitado(){
+	public void deberiaEliminarUnCarritoSolicitado() throws Exception{
 		//given
 		CrearCarritoDTO crearCarrito = new CrearCarritoDTO();
 		crearCarrito.setDni(30575999L);
@@ -58,11 +61,14 @@ public class CarritoService {
 		carritoService.eliminarCarrito(eliminarDto);
 
 		//then
-		Compra compra  = compraService.findByClienteDniAndCarritoDeCompraId(creado.getCliente(), creado.getId())
-				.orElseThrow(()->fail("No se pudo terminar el test"));
+		Optional<Compra> compra  = compraService.findByClienteDniAndCarritoDeCompraId(creado.getCliente(), creado.getId());		
 		
-		assertThat(compra.getEstadosAnteriores(), Matchers.hasSize(1));
-		assertThat(compra.getEstadoOrdenDeCompra(),Matchers.isA(EstadoCompraCancelada.class));
+		if(compra.isEmpty()) {
+			Fail.fail("No se pudo terminar el test", new RuntimeException());
+		}
+		
+		assertThat(compra.get().getEstadosAnteriores(), Matchers.hasSize(1));
+		assertThat(compra.get().getEstadoOrdenDeCompra(),Matchers.isA(EstadoCompraCancelada.class));
 		
 	}
 	

@@ -39,9 +39,8 @@ import lmarfil.ecommerce.service.PromocionService;
 @Transactional
 public class CarritoDeCompraServiceImpl implements CarritoDeCompraService{
 
-	@Autowired
-	EntityManager entityManager;
-	
+
+
 	@Autowired
 	ClienteService clienteService;
 	
@@ -84,7 +83,6 @@ public class CarritoDeCompraServiceImpl implements CarritoDeCompraService{
 		compra.setCliente(cliente);
 		compra.setCarritoDeCompra(carrito);
 		
-		entityManager.flush();
 		comprasService.save(compra);
 		
 		//retornamos el dto del carrito creado que pertenece a una compra solicitada
@@ -113,8 +111,7 @@ public class CarritoDeCompraServiceImpl implements CarritoDeCompraService{
 		}
 		
 		//entonces se puede eliminar. (Marcamos con estado cancelado)
-		compra.eliminar();
-		entityManager.flush();
+		compra.eliminar();	
 		
 		comprasService.save(compra);
 		

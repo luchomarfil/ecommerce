@@ -38,9 +38,6 @@ public class ComprasServiceImpl implements ComprasService {
 	@Autowired
 	ObjectMapper mapper;
 	
-	@Autowired
-	EntityManager entityManager;
-
 	@Override
 	public List<ComprasDTO> getComprasRealizadas(@Valid FiltroCompraDTO filtro) {
 		
@@ -90,7 +87,8 @@ public class ComprasServiceImpl implements ComprasService {
 	}
 
 	@Override
-	public Compra save(@Valid Compra compra) {		
+	public Compra save(@Valid Compra compra) {	
+		compraRepository.flush();
 		return compraRepository.save(compra);
 	}
 
