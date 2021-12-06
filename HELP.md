@@ -37,20 +37,20 @@ Una vez levantado el compose, se generan 2 servicios (33060 - mysql; 33070 - adm
 Luego levantar la aplicación spring, esto correrá las migraciones encontradas con flyway. No es necesario crear la base de datos.
 
 
-#Levantar las bases de dato y el adminer
+# Levantar las bases de dato y el adminer
 directorio_docker/dev$ docker-compose up 
 
-#Levantar la aplicacion
+# Levantar la aplicacion
 mvn spring-boot:run
 
-#Acceso a la aplicacion
+# Acceso a la aplicacion
 http://localhost:9999
 
-#Acceso a la documentacion OpenApi/Sweagger
+# Acceso a la documentacion OpenApi/Sweagger
 http://localhost:9999/swagger-ui.html
 
 
-#Tecnologías
+# Tecnologías
 * Java 11
 * Spring boot + spring
 * Flyway
